@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <!--Login Page Starts-->
+  <section id="login">
+    <div class="container-fluid">
+      <div class="row full-height-vh">
+        <div class="col-12 d-flex align-items-center justify-content-center gradient-aqua-marine"
+          style="background: url('../../../assets/login_background.jpg');">
+          <div class="card px-4 py-2 box-shadow-2 col-md-4">
+            <div class="card-header text-center">
+              <img src="../../../assets/car.jpg" alt="company-logo" class="mb-3" width="100">
+              <h4 class="text-uppercase text-bold-400 grey darken-1">
+                Vehicle App
+              </h4>
+            </div>
+            <div class="card-body">
+              <div class="card-block">
+
+                <router-outlet></router-outlet>
+             
+                <app-toasts aria-live="polite" aria-atomic="true"></app-toasts>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

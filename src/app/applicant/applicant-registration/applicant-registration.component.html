@@ -1,0 +1,200 @@
+<div class="main-content">
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="col-md-12 card">
+        <br>
+        <div class="row">
+          <div class="col-md-4">
+            <h4>
+              Registration Form
+            </h4>
+          </div>
+
+          <div class="col-md-6">
+
+          </div>
+
+          <div class="col-md-2">
+            <button class="btn btn-success box-shadow-2 border-0 pull-right mr-5" (click)="goBack()">
+              <i class=" fa fa-arrow-left"></i>&nbsp;Go Back
+            </button>
+          </div>
+        </div>
+        <br>
+
+        <div class="row">
+          <div class="col-md-4">
+            <h4>
+              Applicant Details
+            </h4>
+          </div>
+        </div>
+        <form [formGroup]="applicantDetailsForm" (ngSubmit)="saveApplicantDetails()">
+          <div class="col-md-12">
+            <div class="custom-img">
+              <input type="file" class="custom-file-input" id="customFile" name="importImg" accept="image/*"
+                (change)="onImgSelect($event)" #UploadImageInput [attr.disabled]="(reviewer || processor)? true : null">
+              <label class="custom-file-label" for="customFile">{{imgInputLabel || 'Choose File'}}</label>
+            </div>
+          </div>
+          <br>
+
+          <input type="text" class="form-control" formControlName="id" [attr.disabled]="true">
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name"
+                formControlName="firstName" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+            <div class="col-md-6">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name"
+                formControlName="lastName" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="dateOfBirth">Date of Birth</label>
+              <input type="date" class="form-control" placeholder="Date of Birth" aria-label="Date of Birth"
+                formControlName="dateOfBirth" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+            <div class="col-md-6">
+              <label for="gender">Gender</label>
+              <select id="inputGender" class="form-control" formControlName="gender"
+                [attr.disabled]="(reviewer || processor)? true : null">
+                <option selected disabled>...</option>
+                <option value="female">Female</option>
+                <option value="male">Male</option>
+              </select>
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="stateOfOrigin">State Of Origin</label>
+              <input type="text" class="form-control" placeholder="State of Origin" aria-label="State of Origin"
+                formControlName="stateOfOrigin" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+            <div class="col-md-6">
+              <label for="occupation">Occupation</label>
+              <input type="text" class="form-control" placeholder="Occupation" aria-label="Occupation"
+                formControlName="occupation" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+          </div>
+          <br>
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="residence">Residence</label>
+              <input type="text" class="form-control" placeholder="Residence" aria-label="Residence"
+                formControlName="residence" [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+            <div class="col-md-6">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" placeholder="Email" aria-label="Email" formControlName="email"
+                [attr.disabled]="(reviewer || processor)? true : null">
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-4">
+              <h4>
+                Vehicle Details
+              </h4>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="col-md-6">
+              <label for="Application Type">Application Type</label>
+              <select id="applicationType" class="form-control" formControlName="applicationType"
+                [attr.disabled]="(reviewer || processor)? true : null">
+                <option selected disabled>...</option>
+                <option value="Articulated Vehicle">Articulated Vehicle</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Private">Private</option>
+                <option value="Motorcycle">Motorcycle</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="first/renewal">First Time or Renewal?</label>
+              <select id="applicationType" class="form-control" formControlName="occurence"
+                [attr.disabled]="(reviewer || processor)? true : null">
+                <option selected disabled>...</option>
+                <option value="First Time">First Time</option>
+                <option value="Renewal">Renewal</option>
+              </select>
+            </div>
+          </div>
+          <br>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="applicationOrigin">
+                <label for="residence">Residence</label>
+                <input type="text" class="form-control" placeholder="Application Origin" aria-label="Application Origin"
+                  formControlName="applicationOrigin" [attr.disabled]="(reviewer || processor)? true : null">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="card-body">
+                <button class="btn btn-primary" type="submit" [disabled]="applicantDetailsForm.invalid"
+                  [hidden]="reviewer || processor">Upload</button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <button class="btn btn-success" type="button" *ngIf="reviewer" (click)="reviewerAccept()"
+          [attr.disabled]="(particularReq.approvedByReviewer!=null)? true: null">
+          Accept by Reviewer
+        </button>
+        <br>
+        <br>
+        <button class="btn btn-danger" type="button" *ngIf="reviewer"
+          (click)="reviewerToggleRejectBtn=!reviewerToggleRejectBtn"
+          [attr.disabled]="(particularReq.approvedByReviewer!=null)? true: null">
+          Rejection By Reviewer
+        </button>
+
+        <button class="btn btn-success" type="button" *ngIf="processor" (click)="processorAccept()"
+          [attr.disabled]="((particularReq.approvedByProcessor!=null) || (particularReq.approvedByReviewer!=null))? true: null">
+          Accept by Processor
+        </button>
+        <br>
+        <br>
+        <button class="btn btn-danger" type="button" *ngIf="processor"
+          (click)="processorToggleRejectBtn=!processorToggleRejectBtn"
+          [attr.disabled]="((particularReq.approvedByProcessor!=null) || (particularReq.approvedByReviewer!=null))? true: null">
+          Rejection By Processor
+        </button>
+
+        <form [formGroup]=" reviewerRejectionForm" (ngSubmit)="reviewerReject()" *ngIf="reviewerToggleRejectBtn">
+          <div class="form-group">
+            <label for="body">Body</label>
+            <textarea class="form-control" id="body" formControlName="body" rows="3"></textarea>
+          </div>
+          <button class="btn btn-danger" type="submit" [disabled]="reviewerRejectionForm.invalid">Reject</button>
+        </form>
+
+        <form [formGroup]="processorRejectionForm" (ngSubmit)="processorReject()" *ngIf="processorToggleRejectBtn">
+          <div class="form-group">
+            <label for="body">Body</label>
+            <textarea class="form-control" id="body" formControlName="body" rows="3"></textarea>
+          </div>
+          <button class="btn btn-danger" type="submit" [disabled]="processorRejectionForm.invalid">Reject</button>
+        </form>
+
+
+      </div>
+    </div>
+  </div>
+</div>
