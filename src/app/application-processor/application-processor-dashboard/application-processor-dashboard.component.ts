@@ -22,13 +22,15 @@ export class ApplicationProcessorDashboardComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,) {
-    this.registrationRequests = this.getRegistrationRequests.filter(function (el: { approvedByReviewer: boolean; }) {
-      return el.approvedByReviewer == true
-    });
 
-    this.localData = this.registrationRequests;
-    
-    this.getCounts();
+
+    if ("registrationRequests" in localStorage) {
+      this.registrationRequests = this.getRegistrationRequests.filter(function (el: { approvedByReviewer: boolean; }) {
+        return el.approvedByReviewer == true
+      });
+      this.localData = this.registrationRequests;
+      this.getCounts();
+    }
   }
 
   ngOnInit(): void {

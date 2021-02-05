@@ -22,9 +22,12 @@ export class ApplicationReviewerDashboardComponent implements OnInit {
 
   constructor(private router: Router,
     private route: ActivatedRoute,) {
-    this.registrationRequests = this.getRegistrationRequests;
-    this.localData = this.registrationRequests;
-    this.getCounts();
+    if ("registrationRequests" in localStorage) {
+      this.registrationRequests = this.getRegistrationRequests;
+      this.localData = this.registrationRequests;
+      this.getCounts();
+    }
+
   }
 
   ngOnInit(): void {
